@@ -1,0 +1,42 @@
+# See spec at https://docs.devin.ai/onboard-devin/repo-setup
+# This repo contains companion code for the "Testing Angular Applications" book.
+# It is organized by chapter, each with its own package.json and dependencies.
+# The main runnable Angular app is in the "website" directory.
+# Requires Node.js 8 (Angular 5.x era project).
+initialize: |
+  # Install Node 8 via nvm (required for this Angular 5.x project)
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  nvm install 8
+maintenance: |
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  nvm use 8
+  # Install dependencies for the main website app
+  (cd website && npm install)
+  # Install dependencies for chapter projects used in CI
+  (cd chapter08 && npm install)
+  (cd chapter09 && npm install)
+  (cd chapter11 && npm install)
+knowledge:
+  - name: lint
+    contents: |
+      # Lint the website app
+      (cd website && npx ng lint)
+  - name: test
+    contents: |
+      # Unit tests for the website app (requires Chrome/Chromium)
+      (cd website && npx ng test --watch=false)
+  - name: startup
+    contents: |
+      # Start the website dev server (Contacts app) on port 4200
+      export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 8
+      (cd website && npx ng serve --port 4200)
+  - name: notes
+    contents: |
+      # Repo structure: each chapter (chapter01-chapter11) is a separate sub-project.
+      # The "website" directory is the main Angular Contacts app (Angular 5.x).
+      # Chapters 06/07 have pre-existing build errors (Angular Material API changes).
+      # Chapters 08/09/10/11 contain Protractor e2e tests.
+      # CI runs on chapter08, chapter09, chapter10/*, and chapter11 (see .circleci/config.yml).
+      # Must use Node 8 via nvm for all operations.
