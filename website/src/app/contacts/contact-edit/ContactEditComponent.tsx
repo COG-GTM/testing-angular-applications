@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 
 import { constants } from './contact-edit.constants';
+// TODO: countryDialingCodes is shared with the Angular app; consider extracting to a shared util
 import { countryDialingCodes } from '../shared/phone-number/country-dialing-codes';
 
 /**
@@ -97,7 +98,8 @@ export const ContactEditComponent: React.FC<ContactEditComponentProps> = ({
   // --- ngOnDestroy equivalent ---
   // The Angular component closed its modal ref on destroy.
   // In React the parent controls the modal lifecycle via onShowModal,
-  // so cleanup is handled externally. Nothing to do here.
+  // so cleanup is handled externally.
+  // TODO: If modal management moves into this component, add cleanup in a useEffect return.
 
   // --- Event handlers ---
 
@@ -172,6 +174,7 @@ export const ContactEditComponent: React.FC<ContactEditComponentProps> = ({
       <div>
         <div className="mat-card">
           <div className="mat-card-title-group">
+            {/* TODO: Replace with a proper icon component (e.g. Material Icons React wrapper) */}
             <span className="material-icons">mood</span>
             <div className="mat-card-title">
               <i
