@@ -103,10 +103,10 @@ export const ContactDetailComponent: React.FC<ContactDetailComponentProps> = ({
     );
   }
 
-  // Contact loaded
-  if (contact !== null) {
-    return (
-      <>
+  return (
+    <>
+      {/* Contact card or not-found message */}
+      {contact !== null ? (
         <div>
           <div style={{ padding: 16, border: '1px solid #ccc', borderRadius: 4 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -121,59 +121,57 @@ export const ContactDetailComponent: React.FC<ContactDetailComponentProps> = ({
             </div>
           </div>
         </div>
-
-        <div className="buttons" style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
-          <div style={{ display: 'flex' }}>
-            <button
-              className="back-button"
-              onClick={onNavigateBack}
-              style={{
-                cursor: 'pointer',
-                marginTop: 10,
-                transform: 'rotate(180deg)',
-                background: '#3f51b5',
-                color: 'white',
-                border: 'none',
-                borderRadius: '50%',
-                width: 56,
-                height: 56,
-                fontSize: 24,
-              }}
-              title="Add new contact"
-            >
-              ➤
-            </button>
-          </div>
-          <div style={{ display: 'flex' }}>
-            <button
-              className="feed-button"
-              onClick={handleOpenDialog}
-              style={{
-                cursor: 'pointer',
-                marginTop: 10,
-                background: '#3f51b5',
-                color: 'white',
-                border: 'none',
-                borderRadius: '50%',
-                width: 56,
-                height: 56,
-                fontSize: 24,
-              }}
-            >
-              📡
-            </button>
-          </div>
+      ) : (
+        <div>
+          <h6 className="messages" style={{ textAlign: 'center' }}>
+            {NO_CONTACT_FOUND_MESSAGE}
+          </h6>
         </div>
-      </>
-    );
-  }
+      )}
 
-  // No contact found
-  return (
-    <div>
-      <h6 className="messages" style={{ textAlign: 'center' }}>
-        {NO_CONTACT_FOUND_MESSAGE}
-      </h6>
-    </div>
+      {/* Buttons always visible when not loading (matches Angular *ngIf="!isLoading") */}
+      <div className="buttons" style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
+        <div style={{ display: 'flex' }}>
+          <button
+            className="back-button"
+            onClick={onNavigateBack}
+            style={{
+              cursor: 'pointer',
+              marginTop: 10,
+              transform: 'rotate(180deg)',
+              background: '#3f51b5',
+              color: 'white',
+              border: 'none',
+              borderRadius: '50%',
+              width: 56,
+              height: 56,
+              fontSize: 24,
+            }}
+            title="Add new contact"
+          >
+            ➤
+          </button>
+        </div>
+        <div style={{ display: 'flex' }}>
+          <button
+            className="feed-button"
+            onClick={handleOpenDialog}
+            style={{
+              cursor: 'pointer',
+              marginTop: 10,
+              background: '#3f51b5',
+              color: 'white',
+              border: 'none',
+              borderRadius: '50%',
+              width: 56,
+              height: 56,
+              fontSize: 24,
+            }}
+          >
+            📡
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
