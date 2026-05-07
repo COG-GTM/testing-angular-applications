@@ -20,7 +20,7 @@ export function NewContact() {
     const init = async () => {
       const contacts = await contactService.getContacts();
       setContact({
-        id: contacts.length + 1,
+        id: Math.max(...contacts.map((c) => c.id), 0) + 1,
         name: '',
         email: '',
         number: '',
