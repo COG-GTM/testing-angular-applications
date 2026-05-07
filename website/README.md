@@ -1,31 +1,71 @@
-**Important**: Please use a node 6.x version, preferably. There may be breaking changes if you use node 7+. We recommned using nvm to switch versions.
+# Contacts App (React + TypeScript)
 
-[![CircleCI Status](https://circleci.com/gh/testing-angular-applications/testing-angular-applications.svg?style=shield)](https://circleci.com/gh/testing-angular-applications/testing-angular-applications)
+A contacts management application migrated from Angular to React with TypeScript.
 
-# Contacts App Starter
+## Tech Stack
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
+- **React 18** with TypeScript
+- **Vite** for build tooling
+- **React Router v6** for routing
+- **MUI (Material UI) v5** for UI components
+- **Vitest** + **React Testing Library** for testing
 
-## Development server
+## Getting Started
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```bash
+cd website
+npm install
+npm run dev
+```
 
-## Code scaffolding
+The app runs at `http://localhost:5173`.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Scripts
 
-## Build
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start development server |
+| `npm run build` | Type-check and production build |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Lint with ESLint |
+| `npm run typecheck` | Run TypeScript type checking |
+| `npm test` | Run tests with Vitest |
+| `npm run test:watch` | Run tests in watch mode |
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+## Project Structure
 
-## Running unit tests
+```
+src/
+├── __tests__/          # Test files
+├── components/         # React components
+│   ├── ContactList.tsx
+│   ├── ContactDetail.tsx
+│   ├── ContactEdit.tsx
+│   ├── ContactFeedDialog.tsx
+│   ├── FavoriteIcon.tsx
+│   ├── NewContact.tsx
+│   └── PageNotFound.tsx
+├── models/             # TypeScript interfaces
+│   └── contact.ts
+├── services/           # Data services
+│   ├── contact.service.ts
+│   ├── contact-feed.service.ts
+│   └── mock-contacts.ts
+├── utils/              # Utility functions
+│   ├── phone-number.ts
+│   └── validation.ts
+├── App.tsx             # Root component with routing
+├── main.tsx            # Entry point
+└── index.css           # Global styles
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Routes
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+| Path | Component | Description |
+| --- | --- | --- |
+| `/` | ContactList | Home / contact list |
+| `/contacts` | ContactList | Contact list |
+| `/contact/:id` | ContactDetail | View contact details |
+| `/edit/:id` | ContactEdit | Edit a contact |
+| `/add` | NewContact | Add a new contact |
+| `*` | PageNotFound | 404 page |
