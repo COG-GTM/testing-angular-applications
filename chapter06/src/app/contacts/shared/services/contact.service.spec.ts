@@ -18,8 +18,8 @@ describe('ContactsService', () => {
     let mockContact: any;
 
     beforeEach(() => {
-      contactService = TestBed.get(ContactService);
-      httpTestingController = TestBed.get(HttpTestingController);
+      contactService = TestBed.inject(ContactService);
+      httpTestingController = TestBed.inject(HttpTestingController);
       mockContact = { id: 100, name: 'Erin Dee', email: 'edee@example.com' };
     });
 
