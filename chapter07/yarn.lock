@@ -3162,6 +3162,11 @@ matcher-collection@^1.0.0:
   dependencies:
     minimatch "^3.0.2"
 
+material-design-lite@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/material-design-lite/-/material-design-lite-1.2.1.tgz#09e5caab2575af8ee21b2630bff175c5a822c662"
+  integrity sha512-u8yXJZAvSWaYJ+nGCiYIvuFkegXCOCNNgDmK0dfXb/RiYGn2oZntwRE0og+ECiD60F1zQxrMYKTDu1CmMp60pw==
+
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
   resolved "https://registry.yarnpkg.com/math-expression-evaluator/-/math-expression-evaluator-1.2.17.tgz#de819fdbcd84dccd8fae59c6aeb79615b9d266ac"

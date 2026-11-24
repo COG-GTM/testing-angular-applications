@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { MatDialogModule } from '@angular/material';
+import { AppMaterialModule } from './app.material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -58,7 +58,7 @@ import { InvalidPhoneNumberModalComponent } from './contacts/shared';
     FormsModule,
     HttpClientModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
-    MatDialogModule,
+    AppMaterialModule,
     RoutingModule
   ],
   providers: [

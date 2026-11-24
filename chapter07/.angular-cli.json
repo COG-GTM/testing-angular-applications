@@ -19,6 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
+        "../node_modules/material-design-lite/dist/material.indigo-pink.min.css",
         "styles.css",
         "material-app-theme.scss"
       ],
