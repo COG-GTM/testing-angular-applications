@@ -10,9 +10,10 @@ import { constants } from './contact-detail.constants';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-contact-detail',
-  templateUrl: './contact-detail.component.html',
-  styleUrls: ['./contact-detail.component.css']
+    selector: 'app-contact-detail',
+    templateUrl: './contact-detail.component.html',
+    styleUrls: ['./contact-detail.component.css'],
+    standalone: false
 })
 export class ContactDetailComponent implements OnInit {
   public loadingContactMessage: string = constants.LOADING_CONTACT_MESSAGE;

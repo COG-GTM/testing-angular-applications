@@ -14,10 +14,11 @@ import { InvalidPhoneNumberModalComponent } from '../shared';
 import { countryDialingCodes } from '../shared';
 
 @Component({
-  selector: 'app-contact-edit',
-  templateUrl: './contact-edit.component.html',
-  styleUrls: ['./contact-edit.component.css'],
-  providers: [MatSnackBar]
+    selector: 'app-contact-edit',
+    templateUrl: './contact-edit.component.html',
+    styleUrls: ['./contact-edit.component.css'],
+    providers: [MatSnackBar],
+    standalone: false
 })
 export class ContactEditComponent implements OnInit, OnDestroy {
   public loadingContactMessage: string = constants.LOADING_CONTACT_MESSAGE;

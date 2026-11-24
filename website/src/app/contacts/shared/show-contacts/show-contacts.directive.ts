@@ -17,7 +17,8 @@ import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
  */
 
 @Directive({
-  selector: '[appShowContacts]'
+    selector: '[appShowContacts]',
+    standalone: false
 })
 export class ShowContactsDirective {
   private templateRef: TemplateRef<any>;
