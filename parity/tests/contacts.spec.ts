@@ -193,6 +193,8 @@ for (const app of APPS) {
       await star.click();
       await page.mouse.move(0, 0);
       await expect(tooltip(page, 'Not Starred')).toHaveCount(0);
+      // let the tooltip hide animation finish, otherwise newer Material ignores the next hover
+      await page.waitForTimeout(800);
       await star.hover();
       await expect(tooltip(page, 'Starred')).toBeAttached();
     });
