@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 import { Contact } from '../';
@@ -7,14 +7,14 @@ import { Contact } from '../';
 @Injectable()
 export class ContactService {
   private contactsUrl = 'app/contacts';
-  private headers: Headers = new Headers({'Content-Type': 'application/json'});
+  private headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   public getContacts(): any {
-    return this.http.get(this.contactsUrl)
+    return this.http.get<{ data: Contact[] }>(this.contactsUrl)
                .toPromise()
-               .then(response => response.json().data as Contact)
+               .then(response => response.data)
                .catch(this.handleError);
   }
 
@@ -47,9 +47,9 @@ export class ContactService {
 
   public post(contact: Contact): Promise<Contact> {
     return this.http
-        .post(this.contactsUrl, JSON.stringify(contact), {headers: this.headers})
+        .post(this.contactsUrl, contact, {headers: this.headers})
         .toPromise()
-        .then(res => res.json())
+        .then(res => res as Contact)
         .catch(this.handleError);
   }
 
@@ -57,7 +57,7 @@ export class ContactService {
     const url = `${this.contactsUrl}/${contact.id}`;
 
     return this.http
-             .put(url, JSON.stringify(contact), {headers: this.headers})
+             .put(url, contact, {headers: this.headers})
              .toPromise()
              .then(() => contact)
              .catch(this.handleError);
