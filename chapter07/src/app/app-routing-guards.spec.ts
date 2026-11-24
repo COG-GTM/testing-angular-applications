@@ -24,14 +24,16 @@ class AuthenticationGuard  {
 }
 
 @Component({
-  selector: 'app-root',
-  template: `<router-outlet></router-outlet>`,
+    selector: 'app-root',
+    template: `<router-outlet></router-outlet>`,
+    standalone: false
 })
 class AppComponent { }
 
 @Component({
-  selector: `target`,
-  template: `target`
+    selector: `target`,
+    template: `target`,
+    standalone: false
 })
 class TargetComponent { }
 

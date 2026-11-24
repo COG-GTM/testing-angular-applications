@@ -7,8 +7,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from 'rxjs'
 
 @Component({
-  selector: `contact-edit`,
-  template: `<div class="contact-id">{{ contactId }}</div>`,
+    selector: `contact-edit`,
+    template: `<div class="contact-id">{{ contactId }}</div>`,
+    standalone: false
 })
 class ContactEditComponent implements OnInit {
   private contactId: any;

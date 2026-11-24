@@ -10,9 +10,10 @@ class NavConfigService {
   menu = [{ label: 'Home', path: '/target/12' }];
 }
 
-@Component({ // #A
-  selector: `navigation-menu`, // #A
-  template: `<div><a *ngFor="let item of menu" [id]="item.label" [routerLink]="item.path">{{ item.label }}</a></div>`, // #A
+@Component({
+    selector: `navigation-menu`, // #A
+    template: `<div><a *ngFor="let item of menu" [id]="item.label" [routerLink]="item.path">{{ item.label }}</a></div>`,
+    standalone: false
 }) // #A
 class NavigationMenu implements OnInit { // #A
   menu: any; // #A
@@ -24,15 +25,18 @@ class NavigationMenu implements OnInit { // #A
 } // #A
 
 
-@Component({ // #A
-  selector: 'app-root', // #A
-  template: `<router-outlet></router-outlet>`, // #A
+@Component({
+    selector: 'app-root', // #A
+    template: `<router-outlet></router-outlet>`,
+    standalone: false
 }) // #A
 class AppComponent { } // #A
 
-@Component({ // #B
-  selector: `simple-component`, // #B
-  template: `simple` // #B
+@Component({
+    selector: `simple-component`, // #B
+    template: `simple` // #B
+    ,
+    standalone: false
 }) // #B
 class SimpleComponent { } // #B
 

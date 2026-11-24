@@ -31,7 +31,8 @@ import { constants } from './favorite-icon.constants';
  */
 
 @Directive({
-  selector: '[appFavoriteIcon]'
+    selector: '[appFavoriteIcon]',
+    standalone: false
 })
 export class FavoriteIconDirective implements OnInit {
   private element: HTMLElement;

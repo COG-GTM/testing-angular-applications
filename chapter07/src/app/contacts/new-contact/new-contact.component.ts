@@ -8,9 +8,10 @@ import { InvalidEmailModalComponent } from '../shared';
 import { InvalidPhoneNumberModalComponent } from '../shared';
 
 @Component({
-  selector: 'app-new-contact',
-  templateUrl: './new-contact.component.html',
-  styleUrls: ['./new-contact.component.css']
+    selector: 'app-new-contact',
+    templateUrl: './new-contact.component.html',
+    styleUrls: ['./new-contact.component.css'],
+    standalone: false
 })
 export class NewContactComponent implements OnInit {
   public contact: Contact;

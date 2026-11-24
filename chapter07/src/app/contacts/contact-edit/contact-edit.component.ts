@@ -16,10 +16,11 @@ import { countryDialingCodes } from '../shared';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-contact-detail',
-  templateUrl: './contact-edit.component.html',
-  styleUrls: ['./contact-edit.component.css'],
-  providers: [MatSnackBar]
+    selector: 'app-contact-detail',
+    templateUrl: './contact-edit.component.html',
+    styleUrls: ['./contact-edit.component.css'],
+    providers: [MatSnackBar],
+    standalone: false
 })
 export class ContactEditComponent implements OnInit {
   public loadingContactMessage: string = constants.LOADING_CONTACT_MESSAGE;
