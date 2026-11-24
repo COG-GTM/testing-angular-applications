@@ -21,7 +21,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Running end-to-end tests
 
 Protractor is no longer supported by Angular CLI 21, so `ng e2e` no longer runs. The browser end-to-end checks live in the Playwright parity suite in `../parity` (`cd ../parity && npm ci && npx playwright test`).
-Before running the parity suite make sure the app is served on its port (see `../parity/playwright.config.ts`).
+The parity suite expects all three apps served on their ports (baseline 4000-4002, upgraded 4200-4202, see `../parity/playwright.config.ts`); to check only this app, serve it and add `--project=upgraded -g "chapter06 "`.
 
 ## Further help
 
