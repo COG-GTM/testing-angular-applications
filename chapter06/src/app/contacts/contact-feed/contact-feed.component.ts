@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDia
 import {ContactFeedService} from '../shared/services/contact-feed.service';
 import {Subscription} from 'rxjs';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatList, MatListItem } from '@angular/material/list';
+import { MatList, MatListItem, MatListItemLine, MatListItemTitle } from '@angular/material/list';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatButton } from '@angular/material/button';
 
@@ -11,7 +11,7 @@ import { MatButton } from '@angular/material/button';
     selector: 'app-contact-feed',
     templateUrl: './contact-feed.component.html',
     styleUrls: ['./contact-feed.component.css'],
-    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatList, MatListItem, MatProgressBar, MatDialogActions, MatButton, MatDialogClose]
+    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatList, MatListItem, MatListItemTitle, MatListItemLine, MatProgressBar, MatDialogActions, MatButton, MatDialogClose]
 })
 export class ContactFeedDialogComponent implements OnInit, OnDestroy {
   dialogRef = inject<MatDialogRef<ContactFeedDialogComponent>>(MatDialogRef);
