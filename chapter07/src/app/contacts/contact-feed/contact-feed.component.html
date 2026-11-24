@@ -4,8 +4,8 @@
     <mat-list>
       @for (update of updates(); track update) {
         <mat-list-item>
-          <h4 mat-line>{{update}}</h4>
-          <p class="update-time" mat-line>at Wed 12:00</p>
+          <h4 matListItemTitle>{{update}}</h4>
+          <p class="update-time" matListItemLine>at Wed 12:00</p>
         </mat-list-item>
       }
     </mat-list>

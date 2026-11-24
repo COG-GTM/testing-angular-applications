@@ -2,7 +2,7 @@ import { Component, Injectable, inject as inject_1 } from '@angular/core';
 import { Location } from '@angular/common';
 import { TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { RouterTestingModule } from "@angular/router/testing";
-import { Router } from "@angular/router";
+import { Router, RouterOutlet } from "@angular/router";
 
 @Injectable()
 class UserAuthentication {
@@ -26,7 +26,8 @@ class AuthenticationGuard  {
 
 @Component({
     selector: 'app-root',
-    template: `<router-outlet></router-outlet>`
+    template: `<router-outlet></router-outlet>`,
+    imports: [RouterOutlet]
 })
 class AppComponent { }
 

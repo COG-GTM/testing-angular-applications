@@ -1,7 +1,7 @@
 {
   "name": "contacts-app-starter",
   "engines": {
-    "node": "7.x"
+    "node": "^20.19.0 || ^22.12.0 || >=24.0.0"
   },
   "license": "MIT",
   "angular-cli": {},
@@ -42,7 +42,7 @@
     "@types/jasminewd2": "2.0.2",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
-    "jasmine-core": "~3.6.0",
+    "jasmine-core": "~3.99.1",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.1.0",
