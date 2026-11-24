@@ -2,7 +2,7 @@ import { Component, Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { RouterTestingModule } from "@angular/router/testing";
-import { Router, CanActivate } from "@angular/router";
+import { Router } from "@angular/router";
 
 @Injectable()
 class UserAuthentication {
@@ -16,7 +16,7 @@ class UserAuthentication {
 }
 
 @Injectable()
-class AuthenticationGuard implements CanActivate {
+class AuthenticationGuard  {
   constructor(private userAuth: UserAuthentication) {}
   canActivate(): Promise<boolean> | boolean {
     return new Promise((resolve) => resolve(this.userAuth.getAuthenticated()));
