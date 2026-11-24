@@ -1,17 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { ContactService } from '../shared/services/contact.service';
 import { Contact } from '../shared/models/contact.model';
 import { InvalidEmailModalComponent } from '../shared';
 import { InvalidPhoneNumberModalComponent } from '../shared';
+import { MatCard } from '@angular/material/card';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatButton, MatFabButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressBar } from '@angular/material/progress-bar';
 
 @Component({
     selector: 'app-new-contact',
     templateUrl: './new-contact.component.html',
     styleUrls: ['./new-contact.component.css'],
-    standalone: false
+    imports: [MatCard, MatFormField, MatInput, FormsModule, MatButton, RouterLink, MatFabButton, MatIcon, MatProgressBar]
 })
 export class NewContactComponent implements OnInit {
   public contact: Contact;

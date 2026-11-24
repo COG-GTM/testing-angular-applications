@@ -30,10 +30,7 @@ import { constants } from './favorite-icon.constants';
  * <i [appFavoriteIcon]="contact.favorite" [color]="'blue'></i>
  */
 
-@Directive({
-    selector: '[appFavoriteIcon]',
-    standalone: false
-})
+@Directive({ selector: '[appFavoriteIcon]' })
 export class FavoriteIconDirective implements OnInit {
   private element: HTMLElement;
   private renderer: Renderer2;

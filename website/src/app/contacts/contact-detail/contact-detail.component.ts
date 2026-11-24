@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ContactFeedDialogComponent } from '../contact-feed';
 
 import {
@@ -8,12 +8,18 @@ import {
 } from '../shared';
 import { constants } from './contact-detail.constants';
 import { MatDialog } from '@angular/material/dialog';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatCard, MatCardTitleGroup, MatCardTitle, MatCardSubtitle } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
+import { MatFabButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { PhoneNumberPipe } from '../shared/phone-number/phone-number.pipe';
 
 @Component({
     selector: 'app-contact-detail',
     templateUrl: './contact-detail.component.html',
     styleUrls: ['./contact-detail.component.css'],
-    standalone: false
+    imports: [MatProgressBar, MatCard, MatCardTitleGroup, MatIcon, MatCardTitle, MatCardSubtitle, RouterLink, MatFabButton, MatTooltip, PhoneNumberPipe]
 })
 export class ContactDetailComponent implements OnInit {
   public loadingContactMessage: string = constants.LOADING_CONTACT_MESSAGE;

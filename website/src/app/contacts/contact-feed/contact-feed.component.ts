@@ -1,13 +1,17 @@
 import {Component, OnInit, OnDestroy, NgZone, Optional, Inject} from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import {ContactFeedService} from '../shared/services/contact-feed.service';
 import {Subscription} from 'rxjs';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatList, MatListItem } from '@angular/material/list';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'app-contact-feed',
     templateUrl: './contact-feed.component.html',
     styleUrls: ['./contact-feed.component.css'],
-    standalone: false
+    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatList, MatListItem, MatProgressBar, MatDialogActions, MatButton, MatDialogClose]
 })
 export class ContactFeedDialogComponent implements OnInit, OnDestroy {
   sub: Subscription;

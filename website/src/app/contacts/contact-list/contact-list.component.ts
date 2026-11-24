@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 import {
@@ -8,13 +8,20 @@ import {
 } from '../shared';
 import { constants } from './contact-list.constants';
 import { CONTACTS } from '../shared/data/mock-contacts';
+import { ShowContactsDirective } from '../shared/show-contacts/show-contacts.directive';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FavoriteIconDirective } from '../shared/favorite-icon/favorite-icon.directive';
+import { MatButton, MatFabButton } from '@angular/material/button';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { PhoneNumberPipe } from '../shared/phone-number/phone-number.pipe';
 
 @Component({
     selector: 'app-contact-list',
     templateUrl: './contact-list.component.html',
     styleUrls: ['./contact-list.component.css'],
     providers: [MatSnackBar],
-    standalone: false
+    imports: [ShowContactsDirective, MatIcon, MatTooltip, FavoriteIconDirective, MatButton, RouterLink, MatFabButton, MatProgressBar, PhoneNumberPipe]
 })
 export class ContactListComponent implements OnInit {
   public noContactsFoundMessage: string = constants.NO_CONTACTS_FOUND_MESSAGE;
