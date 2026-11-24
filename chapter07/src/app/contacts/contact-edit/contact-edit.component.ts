@@ -12,7 +12,7 @@ import { InvalidEmailModalComponent } from '../shared';
 import { InvalidPhoneNumberModalComponent } from '../shared';
 import { countryDialingCodes } from '../shared';
 
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contact-detail',
@@ -47,11 +47,11 @@ export class ContactEditComponent implements OnInit {
     console.log('snapshot', this.route.snapshot);
     this.route.params.subscribe(params => {
       const id = +params['id'];
-      this.contactService.getContact(id)
-        .map(contact => {
+      this.contactService.getContact(id).pipe(
+        map(contact => {
           this.isLoading = false;
           this.contact = contact;
-      });
+        }));
     });
   }
 
