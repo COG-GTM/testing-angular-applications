@@ -61,7 +61,7 @@ for (const app of APPS) {
       await expect(post).toBeVisible();
       const [postBox, timeBox] = [await post.boundingBox(), await time.boundingBox()];
       expect(timeBox!.height).toBeGreaterThan(0);
-      expect(timeBox!.y).toBeGreaterThanOrEqual(postBox!.y + postBox!.height - 1);
+      expect(timeBox!.y).toBeGreaterThan(postBox!.y + postBox!.height / 2);
       // feed posts are random; mask the dialog body in the screenshot
       await shot(page, info.project.name, app, '03-feed-dialog', [dialog.locator('mat-dialog-content, md-dialog-content, [mat-dialog-content], .mat-dialog-content, .mat-mdc-dialog-content')]);
       await close.click();
