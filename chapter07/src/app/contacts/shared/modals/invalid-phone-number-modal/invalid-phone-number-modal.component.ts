@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { Component, OnInit, inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 
 import { constants } from '../modal.constants';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-invalid-phone-number-modal',
-  templateUrl: './invalid-phone-number-modal.component.html',
-  styleUrls: ['./invalid-phone-number-modal.component.css']
+    selector: 'app-invalid-phone-number-modal',
+    templateUrl: './invalid-phone-number-modal.component.html',
+    styleUrls: ['./invalid-phone-number-modal.component.css'],
+    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatDialogActions, MatButton, MatDialogClose]
 })
 export class InvalidPhoneNumberModalComponent implements OnInit {
-  invalidPhoneNumberMessage = constants.INVALID_PHONE_NUMBER_MESSAGE;
+  dialogRef = inject<MatDialogRef<InvalidPhoneNumberModalComponent>>(MatDialogRef);
 
-  constructor(public dialogRef: MdDialogRef<InvalidPhoneNumberModalComponent>) { }
+  invalidPhoneNumberMessage = constants.INVALID_PHONE_NUMBER_MESSAGE;
 
   ngOnInit() {
   }

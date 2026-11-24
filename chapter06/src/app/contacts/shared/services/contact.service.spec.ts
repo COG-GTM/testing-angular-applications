@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { ContactService } from './contact.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ContactsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ],
-      providers: [ ContactService ]
+      providers: [ContactService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
     });
   });
 
@@ -18,8 +18,8 @@ describe('ContactsService', () => {
     let mockContact: any;
 
     beforeEach(() => {
-      contactService = TestBed.get(ContactService);
-      httpTestingController = TestBed.get(HttpTestingController);
+      contactService = TestBed.inject(ContactService);
+      httpTestingController = TestBed.inject(HttpTestingController);
       mockContact = { id: 100, name: 'Erin Dee', email: 'edee@example.com' };
     });
 

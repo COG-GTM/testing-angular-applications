@@ -1,8 +1,8 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, inject as inject_1 } from '@angular/core';
 import { Location } from '@angular/common';
 import { TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { RouterTestingModule } from "@angular/router/testing";
-import { Router, CanActivate } from "@angular/router";
+import { Router, RouterOutlet } from "@angular/router";
 
 @Injectable()
 class UserAuthentication {
@@ -16,22 +16,24 @@ class UserAuthentication {
 }
 
 @Injectable()
-class AuthenticationGuard implements CanActivate {
-  constructor(private userAuth: UserAuthentication) {}
+class AuthenticationGuard  {
+  private userAuth = inject_1(UserAuthentication);
+
   canActivate(): Promise<boolean> | boolean {
     return new Promise((resolve) => resolve(this.userAuth.getAuthenticated()));
   }
 }
 
 @Component({
-  selector: 'app-root',
-  template: `<router-outlet></router-outlet>`,
+    selector: 'app-root',
+    template: `<router-outlet></router-outlet>`,
+    imports: [RouterOutlet]
 })
 class AppComponent { }
 
 @Component({
-  selector: `target`,
-  template: `target`
+    selector: `target`,
+    template: `target`
 })
 class TargetComponent { }
 
@@ -43,21 +45,20 @@ describe('Testing routing guards', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([
-        { path: '', component: AppComponent },
-        {
-          path: 'protected',
-          component: TargetComponent,
-          canActivate: [AuthenticationGuard],
-        },
-      ])],
-      providers: [AuthenticationGuard, UserAuthentication],
-      declarations: [TargetComponent, AppComponent],
-    });
+    imports: [RouterTestingModule.withRoutes([
+            { path: '', component: AppComponent },
+            {
+                path: 'protected',
+                component: TargetComponent,
+                canActivate: [AuthenticationGuard],
+            },
+        ]), TargetComponent, AppComponent],
+    providers: [AuthenticationGuard, UserAuthentication],
+});
 
-    router = TestBed.get(Router);
-    location = TestBed.get(Location);
-    userAuthService = TestBed.get(UserAuthentication);
+    router = TestBed.inject(Router);
+    location = TestBed.inject(Location);
+    userAuthService = TestBed.inject(UserAuthentication);
   });
 
   beforeEach(fakeAsync(() => {

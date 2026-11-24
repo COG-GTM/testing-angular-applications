@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef, MatSnackBar, MatSnackBarConfig } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 
 import {
@@ -11,14 +12,32 @@ import { constants } from './contact-edit.constants';
 import { InvalidEmailModalComponent } from '../shared';
 import { InvalidPhoneNumberModalComponent } from '../shared';
 import { countryDialingCodes } from '../shared';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatCard, MatCardTitleGroup, MatCardTitle, MatCardSubtitle } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
+import { FavoriteIconDirective } from '../shared/favorite-icon/favorite-icon.directive';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatButton, MatFabButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-contact-edit',
-  templateUrl: './contact-edit.component.html',
-  styleUrls: ['./contact-edit.component.css'],
-  providers: [MatSnackBar]
+    selector: 'app-contact-edit',
+    templateUrl: './contact-edit.component.html',
+    styleUrls: ['./contact-edit.component.css'],
+    providers: [MatSnackBar],
+    imports: [MatProgressBar, MatCard, MatCardTitleGroup, MatIcon, MatCardTitle, FavoriteIconDirective, MatTooltip, MatFormField, MatInput, FormsModule, MatCardSubtitle, MatSelect, MatOption, MatButton, RouterLink, MatFabButton]
 })
 export class ContactEditComponent implements OnInit, OnDestroy {
+  private contactService = inject(ContactService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
+  private dialog = inject(MatDialog);
+
   public loadingContactMessage: string = constants.LOADING_CONTACT_MESSAGE;
   public noContactFoundMessage: string = constants.NO_CONTACT_FOUND_MESSAGE;
   public isLoading = true;
@@ -26,9 +45,6 @@ export class ContactEditComponent implements OnInit, OnDestroy {
   public countryDialingCodes: string[] = this.getKeys(countryDialingCodes);
 
   private modalRef: MatDialogRef<any>;
-
-  constructor(private contactService: ContactService, private route: ActivatedRoute, private router: Router,
-              private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.loadContact();

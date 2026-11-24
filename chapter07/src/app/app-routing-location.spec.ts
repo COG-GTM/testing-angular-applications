@@ -1,22 +1,24 @@
-import { Component, DebugElement, Injectable, OnInit } from '@angular/core';
+import { Component, DebugElement, Injectable, OnInit, inject as inject_1 } from '@angular/core';
 import { Location } from '@angular/common';
 import { By } from '@angular/platform-browser';
 import { TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { RouterTestingModule } from "@angular/router/testing";
-import { Router } from "@angular/router";
+import { Router, RouterLink, RouterOutlet } from "@angular/router";
 
 @Injectable()
 class NavConfigService {
   menu = [{ label: 'Home', path: '/target/12' }];
 }
 
-@Component({ // #A
-  selector: `navigation-menu`, // #A
-  template: `<div><a *ngFor="let item of menu" [id]="item.label" [routerLink]="item.path">{{ item.label }}</a></div>`, // #A
+@Component({
+    selector: `navigation-menu`, // #A
+    template: `<div>@for (item of menu; track item) {<a [id]="item.label" [routerLink]="item.path">{{ item.label }}</a>}</div>`,
+    imports: [RouterLink]
 }) // #A
-class NavigationMenu implements OnInit { // #A
+class NavigationMenu implements OnInit {
+  private navConfig = inject_1(NavConfigService);
+ // #A
   menu: any; // #A
-  constructor(private navConfig: NavConfigService) { } // #A
  // #A
   ngOnInit() { // #A
     this.menu = this.navConfig.menu; // #A
@@ -24,15 +26,16 @@ class NavigationMenu implements OnInit { // #A
 } // #A
 
 
-@Component({ // #A
-  selector: 'app-root', // #A
-  template: `<router-outlet></router-outlet>`, // #A
+@Component({
+    selector: 'app-root', // #A
+    template: `<router-outlet></router-outlet>`,
+    imports: [RouterOutlet]
 }) // #A
 class AppComponent { } // #A
 
-@Component({ // #B
-  selector: `simple-component`, // #B
-  template: `simple` // #B
+@Component({
+    selector: `simple-component`, // #B
+    template: `simple` // #B
 }) // #B
 class SimpleComponent { } // #B
 
@@ -46,19 +49,18 @@ describe('Testing routes', () => { // #C
       imports: [RouterTestingModule.withRoutes([ // #C
         { path: '', component: NavigationMenu }, // #C
         { path: 'target/:id', component: SimpleComponent } // #C
-      ])], // #C
+      ]), NavigationMenu, SimpleComponent, AppComponent], // #C
       providers: [{  // #C
         provide: NavConfigService,  // #C
         useValue: { menu: [{ label: 'Home', path: '/target/fakeId' }] }  // #C
       }], // #C
-      declarations: [NavigationMenu, SimpleComponent, AppComponent], // #C
     }); // #C
 
   });
 
   beforeEach(fakeAsync(() => { // #D
-    router = TestBed.get(Router); // #D
-    location = TestBed.get(Location); // #D
+    router = TestBed.inject(Router); // #D
+    location = TestBed.inject(Location); // #D
     fixture = TestBed.createComponent(AppComponent); // #D
     router.navigateByUrl('/'); // #D
     advance(); // #D

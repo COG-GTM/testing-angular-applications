@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BrowserStorageAsync } from './browser-storage.service';
 import { IContactPreference } from './preferences.service';
 
 @Injectable()
 export class PreferencesAsyncService {
+  private browserStorage = inject(BrowserStorageAsync);
 
-  constructor(private browserStorage: BrowserStorageAsync) { }
 
     savePropertyAsync(preference: IContactPreference) : Promise<boolean> {
         return this.browserStorage.setItem(preference.key, preference.value);

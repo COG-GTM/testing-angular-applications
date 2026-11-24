@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ContactFeedDialogComponent } from '../contact-feed';
 
 import {
@@ -7,20 +7,29 @@ import {
   ContactService,
 } from '../shared';
 import { constants } from './contact-detail.constants';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatCard, MatCardTitleGroup, MatCardTitle, MatCardSubtitle } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
+import { MatFabButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { PhoneNumberPipe } from '../shared/phone-number/phone-number.pipe';
 
 @Component({
-  selector: 'app-contact-detail',
-  templateUrl: './contact-detail.component.html',
-  styleUrls: ['./contact-detail.component.css']
+    selector: 'app-contact-detail',
+    templateUrl: './contact-detail.component.html',
+    styleUrls: ['./contact-detail.component.css'],
+    imports: [MatProgressBar, MatCard, MatCardTitleGroup, MatIcon, MatCardTitle, MatCardSubtitle, RouterLink, MatFabButton, MatTooltip, PhoneNumberPipe]
 })
 export class ContactDetailComponent implements OnInit {
+  private contactService = inject(ContactService);
+  private route = inject(ActivatedRoute);
+  private dialog = inject(MatDialog);
+
   public loadingContactMessage: string = constants.LOADING_CONTACT_MESSAGE;
   public noContactFoundMessage: string = constants.NO_CONTACT_FOUND_MESSAGE;
   public isLoading = true;
   public contact: Contact = null;
-
-  constructor(private contactService: ContactService, private route: ActivatedRoute, private dialog: MdDialog) { }
 
   ngOnInit() {
     this.loadContact();

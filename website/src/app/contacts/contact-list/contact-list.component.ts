@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { Component, Input, OnInit, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 import {
   Contact,
@@ -8,14 +8,26 @@ import {
 } from '../shared';
 import { constants } from './contact-list.constants';
 import { CONTACTS } from '../shared/data/mock-contacts';
+import { ShowContactsDirective } from '../shared/show-contacts/show-contacts.directive';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FavoriteIconDirective } from '../shared/favorite-icon/favorite-icon.directive';
+import { MatButton, MatFabButton } from '@angular/material/button';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { PhoneNumberPipe } from '../shared/phone-number/phone-number.pipe';
 
 @Component({
-  selector: 'app-contact-list',
-  templateUrl: './contact-list.component.html',
-  styleUrls: ['./contact-list.component.css'],
-  providers: [MatSnackBar]
+    selector: 'app-contact-list',
+    templateUrl: './contact-list.component.html',
+    styleUrls: ['./contact-list.component.css'],
+    providers: [MatSnackBar],
+    imports: [ShowContactsDirective, MatIcon, MatTooltip, FavoriteIconDirective, MatButton, RouterLink, MatFabButton, MatProgressBar, PhoneNumberPipe]
 })
 export class ContactListComponent implements OnInit {
+  private contactService = inject(ContactService);
+  private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
+
   public noContactsFoundMessage: string = constants.NO_CONTACTS_FOUND_MESSAGE;
   public loadingContactsMessage: string = constants.LOADING_CONTACTS_MESSAGE;
   public deletingContactsMessage: string = constants.DELETING_CONTACTS_MESSAGE;
@@ -27,8 +39,6 @@ export class ContactListComponent implements OnInit {
   public selectedContact: Contact;
 
   @Input('contacts') contacts: Contact[];
-
-  constructor(private contactService: ContactService, private router: Router, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.getContacts();

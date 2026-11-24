@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, HostListener, OnInit, Renderer } from '@angular/core';
+import { Directive, ElementRef, Input, HostListener, OnInit, Renderer2, inject } from '@angular/core';
 
 import { constants } from './favorite-icon.constants';
 
@@ -30,12 +30,10 @@ import { constants } from './favorite-icon.constants';
  * <i [appFavoriteIcon]="contact.favorite" [color]="'blue'></i>
  */
 
-@Directive({
-  selector: '[appFavoriteIcon]'
-})
+@Directive({ selector: '[appFavoriteIcon]' })
 export class FavoriteIconDirective implements OnInit {
   private element: HTMLElement;
-  private renderer: Renderer;
+  private renderer: Renderer2;
   private _primaryColor = 'gold';
   private _starClasses: any = constants.classes;
 
@@ -48,7 +46,10 @@ export class FavoriteIconDirective implements OnInit {
     }
   }
 
-  constructor(element: ElementRef, renderer: Renderer) {
+  constructor() {
+    const element = inject(ElementRef);
+    const renderer = inject(Renderer2);
+
     this.element = element.nativeElement;
     this.renderer = renderer;
   }
@@ -103,11 +104,11 @@ export class FavoriteIconDirective implements OnInit {
 
   private setStarClass(starType: string): void {
     const className: string = this.getStarClasses(starType);
-    this.renderer.setElementAttribute(this.element, 'class', className);
+    __ngRendererSetElementAttributeHelper(this.renderer, this.element, 'class', className);
   }
 
   private setStarColor(color: string): void {
-    this.renderer.setElementStyle(this.element, 'color', color);
+    this.renderer.setStyle(this.element, 'color', color);
   }
 
   private getStarClasses(starType): string {
@@ -126,4 +127,24 @@ export class FavoriteIconDirective implements OnInit {
 
     return classNames;
   }
+}
+
+type AnyDuringRendererMigration = any;
+
+function __ngRendererSplitNamespaceHelper(name: AnyDuringRendererMigration) {
+    if (name[0] === ":") {
+        const match = name.match(/^:([^:]+):(.+)$/);
+        return [match[1], match[2]];
+    }
+    return ["", name];
+}
+
+function __ngRendererSetElementAttributeHelper(renderer: AnyDuringRendererMigration, element: AnyDuringRendererMigration, namespaceAndName: AnyDuringRendererMigration, value?: AnyDuringRendererMigration) {
+    const [namespace, name] = __ngRendererSplitNamespaceHelper(namespaceAndName);
+    if (value != null) {
+        renderer.setAttribute(element, name, value, namespace);
+    }
+    else {
+        renderer.removeAttribute(element, name, namespace);
+    }
 }

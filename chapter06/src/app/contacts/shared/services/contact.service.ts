@@ -1,32 +1,28 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 // import { Headers, Http } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { EMPTY, Observable } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/empty'
 
 import { Contact } from '../';
 
 @Injectable()
 export class ContactService {
+  private http = inject(HttpClient);
+
   private contactsUrl = 'app/contacts';
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
-
-  constructor(private http: HttpClient) { }
 
   public getContacts(): any {
     return this.http.get(this.contactsUrl)
                // .map(response => response.json().data as Contact)
-               .catch(this.handleError);
+               .pipe(catchError(this.handleError));
   }
 
   public getContact(id: number): Observable<Contact> {
     return this.getContacts()
-               .map(contacts => contacts.find(contact => contact.id === id));
+               .pipe(map((contacts: Contact[]) => contacts.find(contact => contact.id === id)));
   }
 
   public save(contact: Contact): Observable<Contact> {
@@ -46,14 +42,13 @@ export class ContactService {
 
     return this.http
              .delete(url, {headers: this.headers})
-             .switchMap(() => Observable.empty())
-             .catch(this.handleError);
+             .pipe(switchMap(() => EMPTY), catchError(this.handleError));
   }
 
   public post(contact: Contact): Observable<Contact> {
     return this.http
         .post(this.contactsUrl, JSON.stringify(contact), {headers: this.headers})
-        .catch(this.handleError);
+        .pipe(catchError(this.handleError));
   }
 
   public put(contact: Contact): Observable<Contact> {
@@ -61,8 +56,7 @@ export class ContactService {
 
     return this.http
              .put(url, JSON.stringify(contact), {headers: this.headers})
-             .map(() => contact)
-             .catch(this.handleError);
+             .pipe(map(() => contact), catchError(this.handleError));
   }
 
   private handleError(error: any): Promise<any> {

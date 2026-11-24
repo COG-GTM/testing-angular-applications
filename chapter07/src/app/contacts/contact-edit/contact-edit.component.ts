@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MdDialog, MdSnackBar, MdSnackBarConfig } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 
 import {
@@ -12,23 +13,38 @@ import { InvalidEmailModalComponent } from '../shared';
 import { InvalidPhoneNumberModalComponent } from '../shared';
 import { countryDialingCodes } from '../shared';
 
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatCard, MatCardTitleGroup, MatCardTitle, MatCardSubtitle } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
+import { FavoriteIconDirective } from '../shared/favorite-icon/favorite-icon.directive';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatButton, MatFabButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-contact-detail',
-  templateUrl: './contact-edit.component.html',
-  styleUrls: ['./contact-edit.component.css'],
-  providers: [MdSnackBar]
+    selector: 'app-contact-detail',
+    templateUrl: './contact-edit.component.html',
+    styleUrls: ['./contact-edit.component.css'],
+    providers: [MatSnackBar],
+    imports: [MatProgressBar, MatCard, MatCardTitleGroup, MatIcon, MatCardTitle, FavoriteIconDirective, MatTooltip, MatFormField, MatInput, FormsModule, MatCardSubtitle, MatSelect, MatOption, MatButton, RouterLink, MatFabButton]
 })
 export class ContactEditComponent implements OnInit {
+  private contactService = inject(ContactService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
+  private dialog = inject(MatDialog);
+
   public loadingContactMessage: string = constants.LOADING_CONTACT_MESSAGE;
   public noContactFoundMessage: string = constants.NO_CONTACT_FOUND_MESSAGE;
   public isLoading = true;
   public contact: Contact = null;
   public countryDialingCodes: string[] = this.getKeys(countryDialingCodes);
-
-  constructor(private contactService: ContactService, private route: ActivatedRoute, private router: Router,
-              private snackBar: MdSnackBar, private dialog: MdDialog) { }
 
   ngOnInit() {
     this.loadContact();
@@ -47,17 +63,17 @@ export class ContactEditComponent implements OnInit {
     console.log('snapshot', this.route.snapshot);
     this.route.params.subscribe(params => {
       const id = +params['id'];
-      this.contactService.getContact(id)
-        .map(contact => {
+      this.contactService.getContact(id).pipe(
+        map(contact => {
           this.isLoading = false;
           this.contact = contact;
-      });
+        }));
     });
   }
 
   public displayEditSnackBar(): void {
     const message = 'Contact updated';
-    const snackConfig: MdSnackBarConfig = <MdSnackBarConfig>{duration: 2000};
+    const snackConfig: MatSnackBarConfig = <MatSnackBarConfig>{duration: 2000};
     const actionLabel = '';
 
     this.snackBar.open(message, actionLabel, snackConfig);

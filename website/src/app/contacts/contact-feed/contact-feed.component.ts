@@ -1,21 +1,31 @@
-import {Component, OnInit, OnDestroy, NgZone, Optional, Inject} from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Component, OnInit, OnDestroy, NgZone, inject, signal } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import {ContactFeedService} from '../shared/services/contact-feed.service';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatList, MatListItem, MatListItemLine, MatListItemTitle } from '@angular/material/list';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-contact-feed',
-  templateUrl: './contact-feed.component.html',
-  styleUrls: ['./contact-feed.component.css']
+    selector: 'app-contact-feed',
+    templateUrl: './contact-feed.component.html',
+    styleUrls: ['./contact-feed.component.css'],
+    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatList, MatListItem, MatListItemTitle, MatListItemLine, MatProgressBar, MatDialogActions, MatButton, MatDialogClose]
 })
 export class ContactFeedDialogComponent implements OnInit, OnDestroy {
-  sub: Subscription;
-  updates: string[] = [];
-  name: string;
-  closeDisabled = true;
+  dialogRef = inject<MatDialogRef<ContactFeedDialogComponent>>(MatDialogRef);
+  private feed = inject(ContactFeedService);
+  private zone = inject(NgZone);
 
-  constructor(public dialogRef: MatDialogRef<ContactFeedDialogComponent>, private feed: ContactFeedService, private zone: NgZone,
-              @Optional() @Inject(MAT_DIALOG_DATA) data: any) {
+  sub: Subscription;
+  readonly updates = signal<string[]>([]);
+  name: string;
+  readonly closeDisabled = signal(true);
+
+  constructor() {
+    const data = inject(MAT_DIALOG_DATA, { optional: true });
+
     this.name = data.name;
   }
 
@@ -29,15 +39,12 @@ export class ContactFeedDialogComponent implements OnInit, OnDestroy {
        }
      });
      */
-    this.closeDisabled = false;
+    this.closeDisabled.set(false);
 
     this.zone.runOutsideAngular(() => {
       this.sub = this.feed.getFeed().subscribe((x) => {
         this.zone.run(() => {
-          this.updates.push(x);
-          if (this.updates.length > 4) {
-            this.updates.shift();
-          }
+          this.updates.update((updates) => [...updates, x].slice(-4));
         });
       });
     });
