@@ -7,7 +7,7 @@ import {
   ContactService,
 } from '../shared';
 import { constants } from './contact-detail.constants';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-contact-detail',
