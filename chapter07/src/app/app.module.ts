@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, importProvidersFrom } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AppMaterialModule } from './app.material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -50,8 +50,6 @@ import { InvalidPhoneNumberModalComponent } from './contacts/shared';
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
-        HttpClientModule,
-        InMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: true }),
         AppMaterialModule,
         RoutingModule
     ],
@@ -60,7 +58,9 @@ import { InvalidPhoneNumberModalComponent } from './contacts/shared';
         ContactFeedService,
         BrowserStorage,
         PreferencesService,
-        PreferencesAsyncService
+        PreferencesAsyncService,
+        provideHttpClient(withInterceptorsFromDi()),
+        importProvidersFrom(InMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: true })),
     ],
     bootstrap: [AppComponent]
 })
