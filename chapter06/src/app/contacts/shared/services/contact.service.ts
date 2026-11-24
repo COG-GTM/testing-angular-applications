@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 // import { Headers, Http } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EMPTY, Observable } from 'rxjs';
@@ -9,10 +9,10 @@ import { Contact } from '../';
 
 @Injectable()
 export class ContactService {
+  private http = inject(HttpClient);
+
   private contactsUrl = 'app/contacts';
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
-
-  constructor(private http: HttpClient) { }
 
   public getContacts(): any {
     return this.http.get(this.contactsUrl)

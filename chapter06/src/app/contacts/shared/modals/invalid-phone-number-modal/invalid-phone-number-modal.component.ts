@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 
 import { constants } from '../modal.constants';
@@ -12,9 +12,9 @@ import { MatButton } from '@angular/material/button';
     imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatDialogActions, MatButton, MatDialogClose]
 })
 export class InvalidPhoneNumberModalComponent implements OnInit {
-  invalidPhoneNumberMessage = constants.INVALID_PHONE_NUMBER_MESSAGE;
+  dialogRef = inject<MatDialogRef<InvalidPhoneNumberModalComponent>>(MatDialogRef);
 
-  constructor(public dialogRef: MatDialogRef<InvalidPhoneNumberModalComponent>) { }
+  invalidPhoneNumberMessage = constants.INVALID_PHONE_NUMBER_MESSAGE;
 
   ngOnInit() {
   }
