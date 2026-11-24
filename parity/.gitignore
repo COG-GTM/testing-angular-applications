@@ -1,0 +1,8 @@
+node_modules/
+test-results/
+playwright-report/
+report/shots/
+report/results.json
+report/side-by-side/
+report/pixel-diff.json
+report/README.md

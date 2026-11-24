@@ -1,0 +1,13 @@
+{
+  "name": "angular21-parity",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "report": "node compose-report.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.49.1",
+    "pixelmatch": "5.3.0",
+    "pngjs": "7.0.0"
+  }
+}
