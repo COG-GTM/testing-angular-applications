@@ -1,4 +1,4 @@
-**Important**: Please use a node 6.x version, preferably. There may be breaking changes if you use node 7+. We recommned using nvm to switch versions.
+**Important**: Angular 21 needs Node ^20.19.0, ^22.12.0 or >=24. We recommend using nvm to switch versions.
 
 [![CircleCI Status](https://circleci.com/gh/testing-angular-applications/testing-angular-applications.svg?style=shield)](https://circleci.com/gh/testing-angular-applications/testing-angular-applications)
 
@@ -24,7 +24,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## Running end-to-end tests
 
-Protractor is no longer supported by Angular CLI 21, so `ng e2e` no longer runs. The browser end-to-end checks live in the Playwright parity suite in `../parity` (`cd ../parity && npm ci && npx playwright test`).
+Protractor is no longer supported by Angular CLI 21, so `ng e2e` no longer runs. The browser end-to-end checks live in the Playwright parity suite in `../parity` (`cd ../parity && npm ci && npx playwright test`). The parity suite expects all three apps served on their ports (baseline 4000-4002, upgraded 4200-4202, see `../parity/playwright.config.ts`); to check only this app, serve it and add `--project=upgraded -g "website "`.
 
 ## Further help
 
