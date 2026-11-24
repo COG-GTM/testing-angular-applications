@@ -31,6 +31,7 @@ const diffs = [];
 for (const name of [...names].sort()) {
   const a = read(path.join(shots, 'baseline', name));
   const b = read(path.join(shots, 'upgraded', name));
+  if (!a && !b) continue;
   const w = Math.max(a?.width ?? 0, b?.width ?? 0);
   const h = Math.max(a?.height ?? 0, b?.height ?? 0);
   const pa = pad(a, w, h);
