@@ -93,3 +93,9 @@ export async function shot(page: Page, project: string, app: AppDef, name: strin
     mask,
   });
 }
+
+// Material <=9 renders the matInput placeholder as `placeholder`; Material 10+ moves it to
+// `data-placeholder` (visible floating label is identical). Prefix match mirrors getByPlaceholder.
+export function field(page: Page, placeholder: string): Locator {
+  return page.locator(`input[placeholder^="${placeholder}"], input[data-placeholder^="${placeholder}"]`);
+}

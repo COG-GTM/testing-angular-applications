@@ -1,4 +1,4 @@
-import { APPS, SEED, button, contactRows, expect, expectSeedList, rowFor, shot, stamp, test, tooltip } from './fixtures';
+import { APPS, SEED, button, contactRows, expect, expectSeedList, field, rowFor, shot, stamp, test, tooltip } from './fixtures';
 
 for (const app of APPS) {
   test.describe(`${app.name}`, () => {
@@ -65,11 +65,11 @@ for (const app of APPS) {
       const name = `Parity User ${id}`;
       await open(app, '/add');
       await expect(page.getByText('Add New Contact')).toBeVisible();
-      await expect(page.getByPlaceholder('Email')).toHaveCount(0);
+      await expect(field(page, 'Email')).toHaveCount(0);
       await shot(page, info.project.name, app, '04-add-empty');
-      await page.getByPlaceholder('Name').fill(name);
-      await page.getByPlaceholder('Email').fill(`parity+${id}@example.com`);
-      await page.getByPlaceholder('Phone Number (10 digits)').fill('2125550199');
+      await field(page, 'Name').fill(name);
+      await field(page, 'Email').fill(`parity+${id}@example.com`);
+      await field(page, 'Phone Number (10 digits)').fill('2125550199');
       await shot(page, info.project.name, app, '05-add-filled');
       await page.getByRole('button', { name: 'Create' }).click();
       if (!app.addSaves) {
@@ -87,8 +87,8 @@ for (const app of APPS) {
 
     test('add contact rejects an invalid email', async ({ page, open }, info) => {
       await open(app, '/add');
-      await page.getByPlaceholder('Name').fill(`Bad Email ${stamp()}`);
-      await page.getByPlaceholder('Email').fill('not-an-email');
+      await field(page, 'Name').fill(`Bad Email ${stamp()}`);
+      await field(page, 'Email').fill('not-an-email');
       await page.getByRole('button', { name: 'Create' }).click();
       const dialog = page.getByRole('dialog');
       await expect(dialog.getByText('Invalid Email Address')).toBeVisible();
@@ -101,8 +101,8 @@ for (const app of APPS) {
 
     test('add contact rejects an invalid phone number', async ({ page, open }, info) => {
       await open(app, '/add');
-      await page.getByPlaceholder('Name').fill(`Bad Phone ${stamp()}`);
-      await page.getByPlaceholder('Phone Number (10 digits)').fill('12345');
+      await field(page, 'Name').fill(`Bad Phone ${stamp()}`);
+      await field(page, 'Phone Number (10 digits)').fill('12345');
       await page.getByRole('button', { name: 'Create' }).click();
       const dialog = page.getByRole('dialog');
       await expect(dialog.getByText('Invalid Phone Number')).toBeVisible();
@@ -118,9 +118,9 @@ for (const app of APPS) {
       await rowFor(page, 'Adrian Directive').getByText('edit', { exact: true }).click();
       await expect(page).toHaveURL(/\/edit\/1$/);
       if (app.editLoads) {
-        await expect(page.getByPlaceholder('Name')).toHaveValue('Adrian Directive');
-        await expect(page.getByPlaceholder('Email')).toHaveValue('adrian.directive@example.com');
-        await expect(page.getByPlaceholder('Phone Number')).toHaveValue('7035550123');
+        await expect(field(page, 'Name')).toHaveValue('Adrian Directive');
+        await expect(field(page, 'Email')).toHaveValue('adrian.directive@example.com');
+        await expect(field(page, 'Phone Number')).toHaveValue('7035550123');
         await expect(page.getByRole('button', { name: 'Update Contact' })).toBeEnabled();
       } else {
         await page.waitForTimeout(1500);
@@ -133,8 +133,8 @@ for (const app of APPS) {
       test('edit contact saves and returns to the list', async ({ page, open }) => {
         const name = `Edited ${stamp()}`;
         await open(app, '/edit/3');
-        await expect(page.getByPlaceholder('Name')).toHaveValue('Jeff Pipe');
-        await page.getByPlaceholder('Name').fill(name);
+        await expect(field(page, 'Name')).toHaveValue('Jeff Pipe');
+        await field(page, 'Name').fill(name);
         await page.getByRole('button', { name: 'Update Contact' }).click();
         await expect(page.getByText('Contact updated')).toBeVisible();
         await expect(page).toHaveURL(/localhost:\d+\/$/);
@@ -144,16 +144,16 @@ for (const app of APPS) {
 
       test('edit contact rejects invalid email and phone', async ({ page, open }, info) => {
         await open(app, '/edit/2');
-        await expect(page.getByPlaceholder('Name')).toHaveValue('Rusty Component');
-        await page.getByPlaceholder('Email').fill('broken');
+        await expect(field(page, 'Name')).toHaveValue('Rusty Component');
+        await field(page, 'Email').fill('broken');
         await page.getByRole('button', { name: 'Update Contact' }).click();
         const dialog = page.getByRole('dialog');
         await expect(dialog.getByText('Invalid Email Address')).toBeVisible();
         await shot(page, info.project.name, app, '09-edit-invalid-email');
         await button(dialog, 'Ok').click();
         await expect(dialog).toHaveCount(0);
-        await page.getByPlaceholder('Email').fill('rusty@example.com');
-        await page.getByPlaceholder('Phone Number').fill('99');
+        await field(page, 'Email').fill('rusty@example.com');
+        await field(page, 'Phone Number').fill('99');
         await page.getByRole('button', { name: 'Update Contact' }).click();
         await expect(dialog.getByText('Invalid Phone Number')).toBeVisible();
         await button(dialog, 'Ok').click();
