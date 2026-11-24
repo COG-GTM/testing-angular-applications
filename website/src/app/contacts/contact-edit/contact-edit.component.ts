@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig } from '@angular/material/legacy-snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
