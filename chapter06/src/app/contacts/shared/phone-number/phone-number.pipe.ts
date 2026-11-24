@@ -77,10 +77,7 @@ import { phoneNumberErrorMessages } from './phone-number-error-messages';
  * Example:
  * {{ 7035551234 | phoneNumber : "DOTS" : "US" : true }}
 */
-@Pipe({
-    name: 'phoneNumber',
-    standalone: false
-})
+@Pipe({ name: 'phoneNumber' })
 export class PhoneNumberPipe implements PipeTransform {
 
   transform(value: string = '', format?: string, countryCode: string = 'us', allowEmptyString?: boolean): string {

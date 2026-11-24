@@ -31,8 +31,13 @@ import { InvalidEmailModalComponent } from './contacts/shared';
 import { InvalidPhoneNumberModalComponent } from './contacts/shared';
 
 @NgModule({
-    declarations: [
-        AppComponent,
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        AppMaterialModule,
+        RoutingModule,
         ContactEditComponent,
         ContactDetailComponent,
         ContactFeedDialogComponent,
@@ -45,13 +50,6 @@ import { InvalidPhoneNumberModalComponent } from './contacts/shared';
         PhoneNumberPipe,
         NewContactComponent,
         ShowContactsDirective
-    ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        AppMaterialModule,
-        RoutingModule
     ],
     providers: [
         ContactService,
