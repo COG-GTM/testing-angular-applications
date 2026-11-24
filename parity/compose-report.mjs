@@ -10,7 +10,10 @@ const shots = path.join(report, 'shots');
 const sbsDir = path.join(report, 'side-by-side');
 fs.mkdirSync(sbsDir, { recursive: true });
 
-const read = (f) => (fs.existsSync(f) ? PNG.sync.read(fs.readFileSync(f)) : null);
+// Ignore screenshots left over from an earlier run so a skipped/failed capture is reported as missing, not stale.
+const resultsFile = path.join(report, 'results.json');
+const runStart = fs.existsSync(resultsFile) ? Date.parse(JSON.parse(fs.readFileSync(resultsFile, 'utf8')).stats.startTime) : 0;
+const read = (f) => (fs.existsSync(f) && fs.statSync(f).mtimeMs >= runStart ? PNG.sync.read(fs.readFileSync(f)) : null);
 const pad = (img, w, h) => {
   const out = new PNG({ width: w, height: h });
   out.data.fill(255);
