@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, inject as inject_1 } from '@angular/core';
 import { Location } from '@angular/common';
 import { TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { RouterTestingModule } from "@angular/router/testing";
@@ -17,7 +17,8 @@ class UserAuthentication {
 
 @Injectable()
 class AuthenticationGuard  {
-  constructor(private userAuth: UserAuthentication) {}
+  private userAuth = inject_1(UserAuthentication);
+
   canActivate(): Promise<boolean> | boolean {
     return new Promise((resolve) => resolve(this.userAuth.getAuthenticated()));
   }

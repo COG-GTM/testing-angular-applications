@@ -1,4 +1,4 @@
-import { Component, DebugElement, Injectable, OnInit } from '@angular/core';
+import { Component, DebugElement, Injectable, OnInit, inject as inject_1 } from '@angular/core';
 import { Location } from '@angular/common';
 import { By } from '@angular/platform-browser';
 import { TestBed, fakeAsync, flush } from '@angular/core/testing';
@@ -15,9 +15,10 @@ class NavConfigService {
     template: `<div>@for (item of menu; track item) {<a [id]="item.label" [routerLink]="item.path">{{ item.label }}</a>}</div>`,
     imports: [RouterLink]
 }) // #A
-class NavigationMenu implements OnInit { // #A
+class NavigationMenu implements OnInit {
+  private navConfig = inject_1(NavConfigService);
+ // #A
   menu: any; // #A
-  constructor(private navConfig: NavConfigService) { } // #A
  // #A
   ngOnInit() { // #A
     this.menu = this.navConfig.menu; // #A

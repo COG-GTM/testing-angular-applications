@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BrowserStorage } from './browser-storage.service';
 
 export interface IContactPreference {
@@ -8,8 +8,8 @@ export interface IContactPreference {
 
 @Injectable()
 export class PreferencesService {
+  private browserStorage = inject(BrowserStorage);
 
-  constructor(private browserStorage: BrowserStorage ) { }
 
   public saveProperty(preference: IContactPreference) {
     if (!preference.key.length) {

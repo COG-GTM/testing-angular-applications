@@ -1,4 +1,4 @@
-import { Component, OnInit, DebugElement } from '@angular/core';
+import { Component, OnInit, DebugElement, inject as inject_1 } from '@angular/core';
 import { Location } from '@angular/common';
 import { By } from '@angular/platform-browser';
 import { TestBed, inject, waitForAsync } from '@angular/core/testing';
@@ -11,8 +11,9 @@ import { Observable } from 'rxjs'
     template: `<div class="contact-id">{{ contactId }}</div>`
 })
 class ContactEditComponent implements OnInit {
+  private activatedRoute = inject_1(ActivatedRoute);
+
   private contactId: any;
-  constructor(private activatedRoute: ActivatedRoute) { }
   ngOnInit () {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.contactId = id;

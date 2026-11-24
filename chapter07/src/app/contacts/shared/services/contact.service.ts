@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
@@ -8,10 +8,10 @@ import { Contact } from '../';
 
 @Injectable()
 export class ContactService {
+  private http = inject(HttpClient);
+
   private contactsUrl = 'app/contacts';
   private headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
-
-  constructor(private http: HttpClient) { }
 
   public getContacts(): any {
     return this.http.get<{ data: Contact[] }>(this.contactsUrl)

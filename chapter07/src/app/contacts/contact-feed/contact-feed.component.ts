@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, NgZone, Optional, Inject} from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import {ContactFeedService} from '../shared/services/contact-feed.service';
 import {Subscription} from 'rxjs';
@@ -14,13 +14,18 @@ import { MatButton } from '@angular/material/button';
     imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatList, MatListItem, MatProgressBar, MatDialogActions, MatButton, MatDialogClose]
 })
 export class ContactFeedDialogComponent implements OnInit, OnDestroy {
+  dialogRef = inject<MatDialogRef<ContactFeedDialogComponent>>(MatDialogRef);
+  private feed = inject(ContactFeedService);
+  private zone = inject(NgZone);
+
   sub: Subscription;
   updates: string[] = [];
   name: string;
   closeDisabled = true;
 
-  constructor(public dialogRef: MatDialogRef<ContactFeedDialogComponent>, private feed: ContactFeedService, private zone: NgZone,
-              @Optional() @Inject(MAT_DIALOG_DATA) data: any) {
+  constructor() {
+    const data = inject(MAT_DIALOG_DATA, { optional: true });
+
     this.name = data.name;
   }
 
