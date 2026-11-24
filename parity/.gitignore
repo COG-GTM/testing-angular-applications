@@ -6,3 +6,5 @@ report/results.json
 report/side-by-side/
 report/pixel-diff.json
 report/README.md
+test-results-*/
+dbg*.mjs
