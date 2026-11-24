@@ -4,9 +4,10 @@ import {ContactFeedService} from '../shared/services/contact-feed.service';
 import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-contact-feed',
-  templateUrl: './contact-feed.component.html',
-  styleUrls: ['./contact-feed.component.css']
+    selector: 'app-contact-feed',
+    templateUrl: './contact-feed.component.html',
+    styleUrls: ['./contact-feed.component.css'],
+    standalone: false
 })
 export class ContactFeedDialogComponent implements OnInit, OnDestroy {
   sub: Subscription;

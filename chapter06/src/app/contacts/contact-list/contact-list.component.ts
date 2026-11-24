@@ -10,10 +10,11 @@ import { constants } from './contact-list.constants';
 import { CONTACTS } from '..//shared/data/mock-contacts';
 
 @Component({
-  selector: 'app-contact-list',
-  templateUrl: './contact-list.component.html',
-  styleUrls: ['./contact-list.component.css'],
-  providers: [MatSnackBar]
+    selector: 'app-contact-list',
+    templateUrl: './contact-list.component.html',
+    styleUrls: ['./contact-list.component.css'],
+    providers: [MatSnackBar],
+    standalone: false
 })
 export class ContactListComponent implements OnInit {
   public noContactsFoundMessage: string = constants.NO_CONTACTS_FOUND_MESSAGE;
