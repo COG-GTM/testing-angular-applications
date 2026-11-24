@@ -1,7 +1,7 @@
 import { Component, OnInit, DebugElement } from '@angular/core';
 import { Location } from '@angular/common';
 import { By } from '@angular/platform-browser';
-import { TestBed, inject, async } from '@angular/core/testing';
+import { TestBed, inject, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from "@angular/router/testing";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from 'rxjs'
@@ -43,12 +43,12 @@ describe('Testing activated routes', () => {
     });
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ContactEditComponent);
     fixture.detectChanges();
   }));
 
-  it('Tries to route to a page', async(() => {
+  it('Tries to route to a page', waitForAsync(() => {
     const testEl = fixture.debugElement.query(By.css('div'));
     // console.log('testEl', testEl);
     expect(testEl.nativeElement.textContent).toEqual('aMockId');

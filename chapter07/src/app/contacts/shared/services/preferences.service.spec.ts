@@ -7,7 +7,7 @@ import Preferences = logging.Preferences;
 
 class BrowserStorageMock {
     getItem = (property: string) => ({ key: 'testProp', value: 'testValue '});
-    setItem = ({ key: key, value: value }) => {};
+    setItem = (property: string, value: string | object) => {};
 }
 
 describe('PreferencesService', () => {
