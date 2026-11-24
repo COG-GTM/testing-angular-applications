@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, HostListener, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, HostListener, OnInit, Renderer2, inject } from '@angular/core';
 
 import { constants } from './favorite-icon.constants';
 
@@ -46,7 +46,10 @@ export class FavoriteIconDirective implements OnInit {
     }
   }
 
-  constructor(element: ElementRef, renderer: Renderer2) {
+  constructor() {
+    const element = inject(ElementRef);
+    const renderer = inject(Renderer2);
+
     this.element = element.nativeElement;
     this.renderer = renderer;
   }

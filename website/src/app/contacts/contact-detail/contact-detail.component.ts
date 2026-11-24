@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ContactFeedDialogComponent } from '../contact-feed';
 
@@ -22,12 +22,14 @@ import { PhoneNumberPipe } from '../shared/phone-number/phone-number.pipe';
     imports: [MatProgressBar, MatCard, MatCardTitleGroup, MatIcon, MatCardTitle, MatCardSubtitle, RouterLink, MatFabButton, MatTooltip, PhoneNumberPipe]
 })
 export class ContactDetailComponent implements OnInit {
+  private contactService = inject(ContactService);
+  private route = inject(ActivatedRoute);
+  private dialog = inject(MatDialog);
+
   public loadingContactMessage: string = constants.LOADING_CONTACT_MESSAGE;
   public noContactFoundMessage: string = constants.NO_CONTACT_FOUND_MESSAGE;
   public isLoading = true;
   public contact: Contact = null;
-
-  constructor(private contactService: ContactService, private route: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.loadContact();

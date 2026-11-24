@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -32,6 +32,12 @@ import { MatButton, MatFabButton } from '@angular/material/button';
     imports: [MatProgressBar, MatCard, MatCardTitleGroup, MatIcon, MatCardTitle, FavoriteIconDirective, MatTooltip, MatFormField, MatInput, FormsModule, MatCardSubtitle, MatSelect, MatOption, MatButton, RouterLink, MatFabButton]
 })
 export class ContactEditComponent implements OnInit, OnDestroy {
+  private contactService = inject(ContactService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
+  private dialog = inject(MatDialog);
+
   public loadingContactMessage: string = constants.LOADING_CONTACT_MESSAGE;
   public noContactFoundMessage: string = constants.NO_CONTACT_FOUND_MESSAGE;
   public isLoading = true;
@@ -39,9 +45,6 @@ export class ContactEditComponent implements OnInit, OnDestroy {
   public countryDialingCodes: string[] = this.getKeys(countryDialingCodes);
 
   private modalRef: MatDialogRef<any>;
-
-  constructor(private contactService: ContactService, private route: ActivatedRoute, private router: Router,
-              private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.loadContact();

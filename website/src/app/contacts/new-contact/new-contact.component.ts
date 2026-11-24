@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, RouterLink } from '@angular/router';
 
@@ -21,11 +21,13 @@ import { MatProgressBar } from '@angular/material/progress-bar';
     imports: [MatCard, MatFormField, MatInput, FormsModule, MatButton, RouterLink, MatFabButton, MatIcon, MatProgressBar]
 })
 export class NewContactComponent implements OnInit {
+  private contactService = inject(ContactService);
+  private router = inject(Router);
+  private dialog = inject(MatDialog);
+
   public contact: Contact;
   public id: number;
   public savingContact = false;
-
-  constructor(private contactService: ContactService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.contactService.getContacts()

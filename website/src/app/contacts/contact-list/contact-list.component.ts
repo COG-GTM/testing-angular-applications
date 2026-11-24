@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
@@ -24,6 +24,10 @@ import { PhoneNumberPipe } from '../shared/phone-number/phone-number.pipe';
     imports: [ShowContactsDirective, MatIcon, MatTooltip, FavoriteIconDirective, MatButton, RouterLink, MatFabButton, MatProgressBar, PhoneNumberPipe]
 })
 export class ContactListComponent implements OnInit {
+  private contactService = inject(ContactService);
+  private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
+
   public noContactsFoundMessage: string = constants.NO_CONTACTS_FOUND_MESSAGE;
   public loadingContactsMessage: string = constants.LOADING_CONTACTS_MESSAGE;
   public deletingContactsMessage: string = constants.DELETING_CONTACTS_MESSAGE;
@@ -35,8 +39,6 @@ export class ContactListComponent implements OnInit {
   public selectedContact: Contact;
 
   @Input('contacts') contacts: Contact[];
-
-  constructor(private contactService: ContactService, private router: Router, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.getContacts();
