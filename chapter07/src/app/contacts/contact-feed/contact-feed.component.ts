@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, inject, signal } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import {ContactFeedService} from '../shared/services/contact-feed.service';
 import {Subscription} from 'rxjs';
@@ -19,9 +19,9 @@ export class ContactFeedDialogComponent implements OnInit, OnDestroy {
   private zone = inject(NgZone);
 
   sub: Subscription;
-  updates: string[] = [];
+  readonly updates = signal<string[]>([]);
   name: string;
-  closeDisabled = true;
+  readonly closeDisabled = signal(true);
 
   constructor() {
     const data = inject(MAT_DIALOG_DATA, { optional: true });
@@ -39,15 +39,12 @@ export class ContactFeedDialogComponent implements OnInit, OnDestroy {
        }
      });
      */
-    this.closeDisabled = false;
+    this.closeDisabled.set(false);
 
     this.zone.runOutsideAngular(() => {
       this.sub = this.feed.getFeed().subscribe((x) => {
         this.zone.run(() => {
-          this.updates.push(x);
-          if (this.updates.length > 4) {
-            this.updates.shift();
-          }
+          this.updates.update((updates) => [...updates, x].slice(-4));
         });
       });
     });
