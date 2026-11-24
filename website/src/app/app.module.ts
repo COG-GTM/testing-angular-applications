@@ -28,39 +28,34 @@ import { InvalidEmailModalComponent } from './contacts/shared';
 import { InvalidPhoneNumberModalComponent } from './contacts/shared';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ContactEditComponent,
-    ContactDetailComponent,
-    ContactFeedDialogComponent,
-    ContactListComponent,
-    ContactsComponent,
-    FavoriteIconDirective,
-    InvalidEmailModalComponent,
-    InvalidPhoneNumberModalComponent,
-    PageNotFoundComponent,
-    PhoneNumberPipe,
-    NewContactComponent,
-    ShowContactsDirective
-  ],
-  entryComponents: [
-    ContactFeedDialogComponent,
-    InvalidEmailModalComponent,
-    InvalidPhoneNumberModalComponent
-  ],
-  imports: [
-    AppMaterialModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: true }),
-    RoutingModule
-  ],
-  providers: [
-    ContactService,
-    ContactFeedService,
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        ContactEditComponent,
+        ContactDetailComponent,
+        ContactFeedDialogComponent,
+        ContactListComponent,
+        ContactsComponent,
+        FavoriteIconDirective,
+        InvalidEmailModalComponent,
+        InvalidPhoneNumberModalComponent,
+        PageNotFoundComponent,
+        PhoneNumberPipe,
+        NewContactComponent,
+        ShowContactsDirective
+    ],
+    imports: [
+        AppMaterialModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpClientModule,
+        InMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: true }),
+        RoutingModule
+    ],
+    providers: [
+        ContactService,
+        ContactFeedService,
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
