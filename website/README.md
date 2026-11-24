@@ -16,7 +16,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/browser/` directory. Use `ng build --configuration production` for a production build.
 
 ## Running unit tests
 
@@ -24,7 +24,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Protractor is no longer supported by Angular CLI 21, so `ng e2e` no longer runs. The browser end-to-end checks live in the Playwright parity suite in `../parity` (`cd ../parity && npm ci && npx playwright test`).
 
 ## Further help
 
