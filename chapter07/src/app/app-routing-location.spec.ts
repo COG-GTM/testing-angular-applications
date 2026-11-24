@@ -12,7 +12,7 @@ class NavConfigService {
 
 @Component({
     selector: `navigation-menu`, // #A
-    template: `<div><a *ngFor="let item of menu" [id]="item.label" [routerLink]="item.path">{{ item.label }}</a></div>`,
+    template: `<div>@for (item of menu; track item) {<a [id]="item.label" [routerLink]="item.path">{{ item.label }}</a>}</div>`,
     standalone: false
 }) // #A
 class NavigationMenu implements OnInit { // #A
