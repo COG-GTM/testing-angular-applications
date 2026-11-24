@@ -13,8 +13,8 @@ describe('ContactsService', () => {
     imports: [],
     providers: [ContactService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 });
-    service = TestBed.get(ContactService);
-    httpMock = TestBed.get(HttpTestingController);
+    service = TestBed.inject(ContactService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {

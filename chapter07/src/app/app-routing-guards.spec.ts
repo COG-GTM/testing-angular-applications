@@ -57,9 +57,9 @@ describe('Testing routing guards', () => {
       declarations: [TargetComponent, AppComponent],
     });
 
-    router = TestBed.get(Router);
-    location = TestBed.get(Location);
-    userAuthService = TestBed.get(UserAuthentication);
+    router = TestBed.inject(Router);
+    location = TestBed.inject(Location);
+    userAuthService = TestBed.inject(UserAuthentication);
   });
 
   beforeEach(fakeAsync(() => {

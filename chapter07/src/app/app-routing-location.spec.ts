@@ -61,8 +61,8 @@ describe('Testing routes', () => { // #C
   });
 
   beforeEach(fakeAsync(() => { // #D
-    router = TestBed.get(Router); // #D
-    location = TestBed.get(Location); // #D
+    router = TestBed.inject(Router); // #D
+    location = TestBed.inject(Location); // #D
     fixture = TestBed.createComponent(AppComponent); // #D
     router.navigateByUrl('/'); // #D
     advance(); // #D
