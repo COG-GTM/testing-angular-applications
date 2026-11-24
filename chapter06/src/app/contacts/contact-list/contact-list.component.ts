@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 import {
   Contact,
@@ -13,7 +13,7 @@ import { CONTACTS } from '..//shared/data/mock-contacts';
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
   styleUrls: ['./contact-list.component.css'],
-  providers: [MdSnackBar]
+  providers: [MatSnackBar]
 })
 export class ContactListComponent implements OnInit {
   public noContactsFoundMessage: string = constants.NO_CONTACTS_FOUND_MESSAGE;
@@ -28,7 +28,7 @@ export class ContactListComponent implements OnInit {
 
   @Input('contacts') contacts: Contact[];
 
-  constructor(private contactService: ContactService, private router: Router, private snackBar: MdSnackBar) {}
+  constructor(private contactService: ContactService, private router: Router, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.getContacts();
@@ -44,7 +44,7 @@ export class ContactListComponent implements OnInit {
 
   public displayDeleteSnackBar(contact: Contact): void {
     const message = `${contact.name} deleted.`;
-    const snackConfig: MdSnackBarConfig = {duration: 2000};
+    const snackConfig: MatSnackBarConfig = {duration: 2000};
     const actionLabel = '';
 
     this.snackBar.open(message, actionLabel, snackConfig);
