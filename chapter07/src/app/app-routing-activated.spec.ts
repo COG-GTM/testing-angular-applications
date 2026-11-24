@@ -8,8 +8,7 @@ import { Observable } from 'rxjs'
 
 @Component({
     selector: `contact-edit`,
-    template: `<div class="contact-id">{{ contactId }}</div>`,
-    standalone: false
+    template: `<div class="contact-id">{{ contactId }}</div>`
 })
 class ContactEditComponent implements OnInit {
   private contactId: any;
@@ -39,9 +38,9 @@ describe('Testing activated routes', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: ActivatedRoute, useValue: { params: paramsMock }}],
-      declarations: [ContactEditComponent],
-    });
+    imports: [ContactEditComponent],
+    providers: [{ provide: ActivatedRoute, useValue: { params: paramsMock } }],
+});
   });
 
   beforeEach(waitForAsync(() => {

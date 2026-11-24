@@ -25,15 +25,13 @@ class AuthenticationGuard  {
 
 @Component({
     selector: 'app-root',
-    template: `<router-outlet></router-outlet>`,
-    standalone: false
+    template: `<router-outlet></router-outlet>`
 })
 class AppComponent { }
 
 @Component({
     selector: `target`,
-    template: `target`,
-    standalone: false
+    template: `target`
 })
 class TargetComponent { }
 
@@ -45,17 +43,16 @@ describe('Testing routing guards', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([
-        { path: '', component: AppComponent },
-        {
-          path: 'protected',
-          component: TargetComponent,
-          canActivate: [AuthenticationGuard],
-        },
-      ])],
-      providers: [AuthenticationGuard, UserAuthentication],
-      declarations: [TargetComponent, AppComponent],
-    });
+    imports: [RouterTestingModule.withRoutes([
+            { path: '', component: AppComponent },
+            {
+                path: 'protected',
+                component: TargetComponent,
+                canActivate: [AuthenticationGuard],
+            },
+        ]), TargetComponent, AppComponent],
+    providers: [AuthenticationGuard, UserAuthentication],
+});
 
     router = TestBed.inject(Router);
     location = TestBed.inject(Location);

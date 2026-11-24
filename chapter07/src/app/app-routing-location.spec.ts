@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { By } from '@angular/platform-browser';
 import { TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { RouterTestingModule } from "@angular/router/testing";
-import { Router } from "@angular/router";
+import { Router, RouterLink, RouterOutlet } from "@angular/router";
 
 @Injectable()
 class NavConfigService {
@@ -13,7 +13,7 @@ class NavConfigService {
 @Component({
     selector: `navigation-menu`, // #A
     template: `<div>@for (item of menu; track item) {<a [id]="item.label" [routerLink]="item.path">{{ item.label }}</a>}</div>`,
-    standalone: false
+    imports: [RouterLink]
 }) // #A
 class NavigationMenu implements OnInit { // #A
   menu: any; // #A
@@ -28,15 +28,13 @@ class NavigationMenu implements OnInit { // #A
 @Component({
     selector: 'app-root', // #A
     template: `<router-outlet></router-outlet>`,
-    standalone: false
+    imports: [RouterOutlet]
 }) // #A
 class AppComponent { } // #A
 
 @Component({
     selector: `simple-component`, // #B
     template: `simple` // #B
-    ,
-    standalone: false
 }) // #B
 class SimpleComponent { } // #B
 
@@ -50,12 +48,11 @@ describe('Testing routes', () => { // #C
       imports: [RouterTestingModule.withRoutes([ // #C
         { path: '', component: NavigationMenu }, // #C
         { path: 'target/:id', component: SimpleComponent } // #C
-      ])], // #C
+      ]), NavigationMenu, SimpleComponent, AppComponent], // #C
       providers: [{  // #C
         provide: NavConfigService,  // #C
         useValue: { menu: [{ label: 'Home', path: '/target/fakeId' }] }  // #C
       }], // #C
-      declarations: [NavigationMenu, SimpleComponent, AppComponent], // #C
     }); // #C
 
   });
