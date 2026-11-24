@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy, NgZone, Optional, Inject} from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {ContactFeedService} from '../shared/services/contact-feed.service';
 import {Subscription} from 'rxjs';
 
